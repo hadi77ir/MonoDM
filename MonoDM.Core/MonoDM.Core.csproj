@@ -1,0 +1,126 @@
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <ProjectGuid>{E763345E-6696-4C53-8764-47E4ABD67DEF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MonoDM.Core</RootNamespace>
+    <AssemblyName>MonoDM.Core</AssemblyName>
+    <StartupObject>
+    </StartupObject>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <HintPath>..\..\..\..\..\usr\lib\mono\gac\atk-sharp\2.12.0.0__35e10195dab3c99f\atk-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <HintPath>..\..\..\..\..\usr\lib\mono\gac\gdk-sharp\2.12.0.0__35e10195dab3c99f\gdk-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <HintPath>..\..\..\..\..\usr\lib\mono\gac\glib-sharp\2.12.0.0__35e10195dab3c99f\glib-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <HintPath>..\..\..\..\..\usr\lib\mono\gac\gtk-sharp\2.12.0.0__35e10195dab3c99f\gtk-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CalculatedSegment.cs" />
+    <Compile Include="Common\BaseWidget.cs" />
+    <Compile Include="Common\BaseWindow.cs" />
+    <Compile Include="Common\BoolFormatter.cs" />
+    <Compile Include="Common\ByteFormatter.cs" />
+    <Compile Include="Common\PathHelper.cs" />
+    <Compile Include="Common\TimeSpanFormatter.cs" />
+    <Compile Include="Common\TransferRateFormatter.cs" />
+    <Compile Include="Concurrency\ReaderWriterObjectLocker.cs" />
+    <Compile Include="EventArgs.cs" />
+    <Compile Include="Downloader.cs" />
+    <Compile Include="DownloaderState.cs" />
+    <Compile Include="DownloadManager.cs" />
+    <Compile Include="ExportedListType.cs" />
+    <Compile Include="Extensions\IExtension.cs" />
+    <Compile Include="Extensions\IExtensionParameters.cs" />
+    <Compile Include="Extensions\IInitializable.cs" />
+    <Compile Include="Extensions\IUIExtension.cs" />
+    <Compile Include="IMirrorSelector.cs" />
+    <Compile Include="Instrumentation\MyStopwatch.cs" />
+    <Compile Include="IProtocolProvider.cs" />
+    <Compile Include="ISegmentCalculator.cs" />
+    <Compile Include="MinSizeSegmentCalculator.cs" />
+    <Compile Include="OsUtils.cs" />
+    <Compile Include="ResourceLocation.cs" />
+    <Compile Include="Concurrency\ObjectLocker.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtocolProviderFactory.cs" />
+    <Compile Include="RemoteFileInfo.cs" />
+    <Compile Include="Segment.cs" />
+    <Compile Include="SegmentState.cs" />
+    <Compile Include="SequentialMirrorSelector.cs" />
+    <Compile Include="Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AppManager.cs" />
+    <Compile Include="UI\ClipboardHelper.cs" />
+    <Compile Include="UI\Connection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CoreExtention.cs" />
+    <Compile Include="UI\CoreUIExtention.cs" />
+    <Compile Include="UI\DownloadFolder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\GtkInputBox.cs" />
+    <Compile Include="UI\GtkUtils.cs" />
+    <Compile Include="UI\IApp.cs" />
+    <Compile Include="UI\Location.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Extensions\ExtensionsManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Queue" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
