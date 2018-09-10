@@ -23,7 +23,7 @@ namespace MonoDM.App.UI
 		    nodeView = new NodeView();
 		    Store = new NodeStore(typeof(BatchDownloadNode));
 		    nodeView.NodeStore = Store;
-		    // working around bug #xxxxxx
+		    // working around bug #51688 (https://bugzilla.xamarin.com/show_bug.cgi?id=51688)
 		    typeof(NodeView).GetField("store",BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(nodeView, Store);
 
 		    var renderer = new CellRendererToggle();

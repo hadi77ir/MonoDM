@@ -47,6 +47,7 @@ namespace MonoDM.App.UI
         public DownloadList()
         {
             NodeStore = Store;
+            // working around bug #51688 (https://bugzilla.xamarin.com/show_bug.cgi?id=51688)
             typeof(NodeView).GetField("store",BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(this, Store);
             
             // initialize model
