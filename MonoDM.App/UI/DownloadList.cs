@@ -135,7 +135,6 @@ namespace MonoDM.App.UI
                 dlg.SetDownloadData(SelectedDownloaders[0]);
                 if (dlg.Run() == (int)ResponseType.Ok)
                 {
-                    dlg.SaveChanges();
                     dlg.Destroy();
                 }
             }
@@ -172,12 +171,20 @@ namespace MonoDM.App.UI
                 if (fc.Run() == (int)ResponseType.Accept)
                 {
                     string[] lines = File.ReadAllLines(fc.Filename);
-                    AddDownloadURLs(
-                        lines.Where(s=>ResourceLocation.IsURL(s)).Select(s=>new ResourceLocation{URL = s}).ToArray(),
-                        1,
-                        System.IO.Path.GetDirectoryName(fc.Filename),
-                        0);
+                    
+                    using (var batchDlg = new AddMultipleDownloadDialog())
+                    {
+                        var list = lines.Where(s => ResourceLocation.IsURL(s)).ToArray();
+                        foreach (var item in list)
+                        {
+                            batchDlg.Store.AddNode(new BatchDownloadNode{Checked = true, Url = item});
+                        }
+
+                        batchDlg.Run();
+                        batchDlg.Destroy();
+                    }
                 }
+                fc.Destroy();
             }
         }
         
@@ -197,13 +204,19 @@ namespace MonoDM.App.UI
                     {
                         list.Add(m[i]);
                     }
-                    AddDownloadURLs(
-                        list.Where(s => ResourceLocation.IsURL(s.Groups[0].Value)).Select(s => new ResourceLocation {URL = s.Groups[0].Value})
-                            .ToArray(),
-                        1,
-                        System.IO.Path.GetDirectoryName(fc.Filename),
-                        0);
+                    
+                    using (var batchDlg = new AddMultipleDownloadDialog())
+                    {   
+                        foreach (var item in list)
+                        {
+                            batchDlg.Store.AddNode(new BatchDownloadNode{Checked = true, Url = item.Groups[0].Value});
+                        }
+
+                        batchDlg.Run();
+                        batchDlg.Destroy();
+                    }
                 }
+                fc.Destroy();
             }
         }
 
@@ -218,13 +231,17 @@ namespace MonoDM.App.UI
                 {
                     string target = fc.Filename;
                     List<string> export = new List<string>();
-                    foreach (var downloader in SelectedDownloaders)
+                    var downloadList = SelectedCount > 0
+                        ? (IEnumerable<Downloader>) SelectedDownloaders
+                        : DownloadManager.Instance.Downloads;
+                    foreach (var downloader in downloadList)
                     {
                         export.Add(downloader.ResourceLocation.URL);
                     }
 
                     File.WriteAllText(target, string.Join("\n", export));
                 }
+                fc.Destroy();
             }
         }
 
@@ -239,7 +256,11 @@ namespace MonoDM.App.UI
                 {
                     string target = fc.Filename;
                     List<string> export = new List<string>();
-                    foreach (var downloader in SelectedDownloaders)
+                    var downloadList = SelectedCount > 0
+                        ? (IEnumerable<Downloader>) SelectedDownloaders
+                        : DownloadManager.Instance.Downloads;
+
+                    foreach (var downloader in downloadList)
                     {
                         export.Add("<\n");
                         export.Add(downloader.ResourceLocation.URL);
@@ -248,6 +269,7 @@ namespace MonoDM.App.UI
 
                     File.WriteAllText(target, string.Join("\n", export));
                 }
+                fc.Destroy();
             }
         }
 

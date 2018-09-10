@@ -8,7 +8,7 @@ using ResourceLocation = MonoDM.Core.ResourceLocation;
 
 namespace MonoDM.App.UI
 {
-    public partial class AddMultipleDownloadDialog : Gtk.Dialog
+    public class AddMultipleDownloadDialog : Gtk.Dialog
     {
         public AddMultipleDownloadDialog()
         {
@@ -17,19 +17,19 @@ namespace MonoDM.App.UI
 
 	    public NodeView nodeView;
 	    public CheckButton cbStartNow;
+	    public NodeStore Store { get; private set; }
 	    void InitializeComponent()
 	    {
 		    nodeView = new NodeView();
-		    var store = new NodeStore(typeof(BatchDownloadNode));
-		    nodeView.NodeStore = store;
+		    Store = new NodeStore(typeof(BatchDownloadNode));
+		    nodeView.NodeStore = Store;
 		    // working around bug #xxxxxx
-		    typeof(NodeView).GetField("store",BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(nodeView, store);
+		    typeof(NodeView).GetField("store",BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(nodeView, Store);
 
-		    
 		    var renderer = new CellRendererToggle();
 		    renderer.Activatable = true;
 		    renderer.Toggled += RendererOnToggled;
-		    nodeView.AppendColumn("Checked", renderer, 0);
+		    nodeView.AppendColumn("Checked", renderer, "active", 0);
 		    nodeView.AppendColumn("URL", new CellRendererText(), "text", 1);
 		    VBox.PackStart(nodeView,true,true,0);
 		    cbStartNow = new CheckButton();

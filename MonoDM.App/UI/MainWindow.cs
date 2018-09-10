@@ -11,7 +11,7 @@ using MonoDM.Extension.SpeedLimit;
 using Image = Gtk.Image;
 using Diag = System.Diagnostics;
 
-namespace MonoDM.App
+namespace MonoDM.App 
 {
 	public class MainWindow : BaseWindow
     {
@@ -451,7 +451,7 @@ namespace MonoDM.App
 
         protected void mnuAddBatchClipboard_Click(object sender, EventArgs e)
         {
-	        System.Collections.Generic.List<string> lst = ClipboardHelper.GetURLListFromClipboard();
+	        List<string> lst = ClipboardHelper.GetURLListFromClipboard();
 	        if(lst.Count == 0)
 		        return;
 	        
@@ -548,7 +548,7 @@ namespace MonoDM.App
 
 	    private void mnuTrayIcon_Click(object sender, EventArgs e)
 	    {
-		    SetTrayIconVisibility(((MenuItem)sender).State.HasFlag(StateType.Selected));
+		    SetTrayIconVisibility(((CheckMenuItem)sender).Active);
 	    }
 
 	    private void mnuToolbarIconGtk_Click(object sender, EventArgs e)
@@ -590,14 +590,10 @@ namespace MonoDM.App
 
             // update queue status
             UpdateQueueStatus();
-            
-			// refresh download list
-            // downloadList1.UpdateList();
         }
 
 	    private void UpdateQueueStatus()
 	    { //todo
-		    //throw new NotImplementedException();
 	    }
 
 	    #endregion

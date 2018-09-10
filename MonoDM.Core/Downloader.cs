@@ -1001,5 +1001,21 @@ namespace MonoDM.Core
                 }
             }
         }
+
+        public bool MoveTo(string path)
+        {
+            if (IsWorking())
+                return false;
+            
+            File.Move(localFile, path);
+            
+            foreach (var segment in segments)
+            {
+                segment.OutputStream = null;
+            }
+
+            localFile = path;
+            return true;
+        }
     }
 }

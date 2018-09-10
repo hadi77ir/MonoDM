@@ -160,12 +160,14 @@ namespace MonoDM.Core
 
         public static bool IsURL(string url)
         {
+            /*
             Match m = Regex.Match(url, @"(?<Protocol>\w+):\/\/(?<Domain>[\w.]+\/?)\S*");
             if (m.ToString() != string.Empty)
             {
                 return true;
             }
-            return false;
+            return false;*/
+            return Uri.TryCreate(url, UriKind.Absolute, out _);
         }
 
         #endregion

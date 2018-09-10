@@ -59,10 +59,11 @@ namespace MonoDM.App.UI
 
         private void BtnBrowseOnActivated(object sender, EventArgs e)
         {
-            using (FileChooserDialog fc = new FileChooserDialog("Save to...", (Window) Toplevel,
+            using (FileChooserDialog fc = new FileChooserDialog("Save to...", null,
                 FileChooserAction.Save, "Cancel", ResponseType.Cancel,
                 "Save", ResponseType.Accept))
             {
+                fc.ShowAll();
                 if (fc.Run() == (int) ResponseType.Accept)
                 {
                     txtFilename.Text = fc.Filename;
