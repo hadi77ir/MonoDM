@@ -27,6 +27,7 @@ namespace MonoDM.App.UI
         private Entry _txtPassword;
         private CheckButton _cbAuth;
         private Label _lblFileName;
+        private Button _btnBrowse;
 
         private void InitializeComponent()
         {
@@ -59,11 +60,12 @@ namespace MonoDM.App.UI
             tbl.Attach(new Label("Save To:"), 0, 1, 3, 4, AttachOptions.Shrink, AttachOptions.Shrink, 20,0);
             
             Box box = new HBox();
-            Button btn = new Button {Label = "Browse..."};
-            btn.Clicked += BtnOnActivated;
+            
+            _btnBrowse = new Button {Label = "Browse..."};
+            _btnBrowse.Clicked += BtnOnActivated;
             
             box.PackStart(_txtDest, true, true, 10);
-            box.PackStart(btn, false, false, 10);
+            box.PackStart(_btnBrowse, false, false, 10);
             tbl.Attach(box, 1, 2, 3, 4);
 
             tbl.Attach(new Label("URL:"), 0, 1, 4, 5, AttachOptions.Shrink, AttachOptions.Shrink, 20,0);
@@ -154,7 +156,10 @@ namespace MonoDM.App.UI
             _txtDest.Sensitive = false;
 
             if (_downloader.IsWorking())
+            {
                 _txtUrl.Sensitive = false;
+                _btnBrowse.Sensitive = false;
+            }
             _txtUrl.Text = _downloader.ResourceLocation.URL;
 
             _cbAuth.Active = _downloader.ResourceLocation.Authenticate;

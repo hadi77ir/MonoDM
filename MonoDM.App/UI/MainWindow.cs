@@ -336,23 +336,25 @@ namespace MonoDM.App
 			menuItem.Activated += BtnStopQueue_Click;
 			menu.Add(menuItem);
 
-            menuItem = new MenuItem("Speed Limiter");
-			menu.Add(menuItem);
-			submenu = new Menu();
-			menuItem.Submenu = submenu;
-			
-            menuItem = new RadioMenuItem("On");
-			menuItem.Activated += mnuSpeedLimiterOn_Click;
-			submenu.Add(menuItem);
+			if (speedLimit != null)
+			{
+				menuItem = new MenuItem("Speed Limiter");
+				menu.Add(menuItem);
+				submenu = new Menu();
+				menuItem.Submenu = submenu;
 
-			((RadioMenuItem) menuItem).Active = speedLimit.CurrentEnabled;
-			
-			menuItem = new RadioMenuItem((RadioMenuItem)menuItem, "Off");
-			menuItem.Activated += mnuSpeedLimiterOff_Click;
-			((RadioMenuItem) menuItem).Active = !speedLimit.CurrentEnabled;
-			submenu.Add(menuItem);
+				menuItem = new RadioMenuItem("On");
+				((RadioMenuItem) menuItem).Active = speedLimit.CurrentEnabled;
+				menuItem.Activated += mnuSpeedLimiterOn_Click;
+				submenu.Add(menuItem);
 
-            menuItem = new MenuItem("Options");
+				menuItem = new RadioMenuItem((RadioMenuItem) menuItem, "Off");
+				((RadioMenuItem) menuItem).Active = !speedLimit.CurrentEnabled;
+				menuItem.Activated += mnuSpeedLimiterOff_Click;
+				submenu.Add(menuItem);
+			}
+
+			menuItem = new MenuItem("Options");
 			menuItem.Activated += BtnOptions_Click;
             menu.Add(menuItem);
 
@@ -369,18 +371,18 @@ namespace MonoDM.App
 
 			RadioMenuItem radioMenuItem;
 			radioMenuItem = new RadioMenuItem("IDM style");
-			radioMenuItem.Activated += mnuToolbarIconIdm_Click;
 			radioMenuItem.Active = MonoDM.App.Settings.Default.UseIdmIcons;
+			radioMenuItem.Activated += mnuToolbarIconIdm_Click;
 			submenu.Add(radioMenuItem);
 
 			radioMenuItem = new RadioMenuItem(radioMenuItem, "GTK style");
-			radioMenuItem.Activated += mnuToolbarIconGtk_Click;
 			radioMenuItem.Active = !MonoDM.App.Settings.Default.UseIdmIcons;
+			radioMenuItem.Activated += mnuToolbarIconGtk_Click;
             submenu.Add(radioMenuItem);
 
 			menuItem = new CheckMenuItem("Tray Icon");
+			((CheckMenuItem)menuItem).Active = MonoDM.App.Settings.Default.ShowTrayIcon;
 			menuItem.Toggled += mnuTrayIcon_Click;
-			radioMenuItem.Active = MonoDM.App.Settings.Default.ShowTrayIcon;
 			menu.Add(menuItem);
 
             // help menu
