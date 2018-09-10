@@ -344,8 +344,12 @@ namespace MonoDM.App
             menuItem = new RadioMenuItem("On");
 			menuItem.Activated += mnuSpeedLimiterOn_Click;
 			submenu.Add(menuItem);
+
+			((RadioMenuItem) menuItem).Active = speedLimit.CurrentEnabled;
+			
 			menuItem = new RadioMenuItem((RadioMenuItem)menuItem, "Off");
 			menuItem.Activated += mnuSpeedLimiterOff_Click;
+			((RadioMenuItem) menuItem).Active = !speedLimit.CurrentEnabled;
 			submenu.Add(menuItem);
 
             menuItem = new MenuItem("Options");
@@ -366,14 +370,17 @@ namespace MonoDM.App
 			RadioMenuItem radioMenuItem;
 			radioMenuItem = new RadioMenuItem("IDM style");
 			radioMenuItem.Activated += mnuToolbarIconIdm_Click;
+			radioMenuItem.Active = MonoDM.App.Settings.Default.UseIdmIcons;
 			submenu.Add(radioMenuItem);
 
 			radioMenuItem = new RadioMenuItem(radioMenuItem, "GTK style");
 			radioMenuItem.Activated += mnuToolbarIconGtk_Click;
+			radioMenuItem.Active = !MonoDM.App.Settings.Default.UseIdmIcons;
             submenu.Add(radioMenuItem);
 
 			menuItem = new CheckMenuItem("Tray Icon");
 			menuItem.Toggled += mnuTrayIcon_Click;
+			radioMenuItem.Active = MonoDM.App.Settings.Default.ShowTrayIcon;
 			menu.Add(menuItem);
 
             // help menu

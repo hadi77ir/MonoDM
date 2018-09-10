@@ -60,7 +60,7 @@ namespace MonoDM.App.UI
             
             Box box = new HBox();
             Button btn = new Button {Label = "Browse..."};
-            btn.Activated += BtnOnActivated;
+            btn.Clicked += BtnOnActivated;
             
             box.PackStart(_txtDest, true, true, 10);
             box.PackStart(btn, false, false, 10);

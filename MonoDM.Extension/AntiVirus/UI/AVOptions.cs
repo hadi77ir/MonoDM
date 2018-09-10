@@ -45,7 +45,7 @@ namespace MonoDM.Extension.AntiVirus.UI
             hb.PackStart(txtAVFileName, true, true, 0);
             
             btnSelectAV = new Button("Browse");
-            btnSelectAV.Activated += BtnSelectAvOnActivated;
+            btnSelectAV.Clicked += BtnSelectAvOnActivated;
             hb.PackEnd(btnSelectAV, true, false, 0);
             
             tbl.Attach(hb, 1,2,0,1);
@@ -74,6 +74,7 @@ namespace MonoDM.Extension.AntiVirus.UI
                 {
                     txtAVFileName.Text = fc.Filename;
                 }
+                fc.Destroy();
             }
         }
 

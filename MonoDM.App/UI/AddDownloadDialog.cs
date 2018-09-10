@@ -28,7 +28,7 @@ namespace MonoDM.App.UI
             locBox.PackStart(txtFilename,true,true,10);
 
             Button btnBrowse = new Button("Browse");
-            btnBrowse.Activated += BtnBrowseOnActivated;
+            btnBrowse.Clicked += BtnBrowseOnActivated;
             locBox.PackEnd(btnBrowse,false,false,10);
             VBox.PackStart(locBox);
             
